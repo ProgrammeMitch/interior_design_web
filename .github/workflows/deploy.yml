@@ -1,0 +1,28 @@
+name: Deploy Website to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main   # Deploy whenever changes are pushed to main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the latest code
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # 2. Setup Node (optional but helps with npm tasks if needed later)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # 3. Upload files to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .   # Root folder where index.html exists
